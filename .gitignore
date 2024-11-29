@@ -1,0 +1,39 @@
+# Node.js
+node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Diretórios de cache
+.cache/
+.pnp/
+.pnp.js
+
+# Dependências do Yarn
+yarn.lock
+
+# Dependências do npm
+package-lock.json
+
+# Arquivos de build
+dist/
+build/
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos de IDEs
+.vscode/
+.idea/
+
+# Arquivos temporários
+*.swp
+*.swo
+
+# Arquivos de configuração do editor
+.editorconfig
