@@ -7,7 +7,7 @@ export const getSerializableUserClients = ( userClients: Map<string, ClientData>
             {
                 ip: data.ip,
                 userAgent: data.userAgent,
-                entryTime: data.entryTime.toISOString(),
+                entryTime: data.entryTime,
                 userActivities: data.userActivities,
             },
         ])
