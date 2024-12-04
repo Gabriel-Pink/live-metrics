@@ -3,8 +3,9 @@ import { handleConnection } from './controllers/connectionController';
 import { handleApplicationMessages } from './controllers/messageController';
 import { config } from './config/config';
 import { ClientData } from './models/clientData';
-import { ClientConnection } from './models/clienteConnection';
+import { ClientConnection } from './models/clientConnection';
 import { IncomingMessage } from 'http';
+import { saveClientData } from './repositories/clientRepository';
 
 const wss = new WebSocketServer({ port: config.PORT });
 
@@ -25,14 +26,26 @@ wss.on('connection', (ws: ClientConnection, request: IncomingMessage) => {
     });
 
     ws.on('close', () => {
+
+        const clientData = userClients.get(ws.connectionId)
+
         if (ws.role === 'user') {
+            
             console.log(`[-] Disconnected [-] ${ws.connectionId}`);
+
+            if(clientData){
+
+                clientData.exitTime = Date.now();
+                saveClientData(ws.connectionId, clientData)
+
+            } 
+
         }
         adminClients.forEach(admin => {
-            admin.send(JSON.stringify({ type: 'CONN_LOST', data: userClients.get(ws.connectionId) }));
+            admin.send(JSON.stringify({ type: 'CONN_LOST', data: clientData }));
         });
         userClients.delete(ws.connectionId);
     });
 });
 
-console.log(`Servidor WebSocket rodando na porta ${config.PORT}`);
+console.log(`Server run on port ${config.PORT}`);
