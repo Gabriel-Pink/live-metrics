@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { authenticateAdmin } from "../services/authService";
 import { logConnection, logError } from "../services/loggerService";
 import { sendToAllAdmins } from "../utils/websocketUtils";
-import { ClientConnection } from "../models/clienteConnection";
+import { ClientConnection } from "../models/clientConnection";
 import { ClientData } from "../models/clientData";
 import { getSerializableUserClients } from "../utils/getSerializableUserClients";
 
@@ -35,12 +35,12 @@ export const handleConnection = (ws: ClientConnection, request: IncomingMessage,
         const clientData: ClientData = {
             ip: request.socket.remoteAddress,
             userAgent: request.headers['user-agent'],
-            entryTime: new Date(),
+            entryTime: Date.now(),
             userActivities: [],
         };
 
         userClients.set(connectionId, clientData);
-        
+
         logConnection(`User from ${request.socket.remoteAddress} connected.`);
         sendToAllAdmins(adminClients, JSON.stringify({ type: 'CONN_RECV', data: clientData }));
     }
