@@ -1,4 +1,4 @@
-import { ClientConnection } from '../models/clienteConnection';
+import { ClientConnection } from '../models/clientConnection';
 import { addUserActivity } from '../services/userService';
 import { ClientData } from '../models/clientData';
 
@@ -10,7 +10,7 @@ export const handleApplicationMessages = (ws: ClientConnection, parsedData: any,
     }
 
     if (parsedData.type === 'LOG') {
-        
+
         console.log(`Log received from user: ${ws.connectionId}`);
         const clientData = userClients.get(ws.connectionId);
         const { content, actionType } = parsedData.data;
