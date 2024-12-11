@@ -11,8 +11,8 @@ export const handleConnection = (ws: ClientConnection, request: IncomingMessage,
     const connectionId = uuidv4();
     ws.connectionId = connectionId;
 
-    if (request.headers.authorization) {
-        const token = request.headers.authorization.split(' ')[1];
+    if (request.url?.includes("authorization")) {
+        const token = request.url.split('=')[1];
 
         try {
 
@@ -39,9 +39,11 @@ export const handleConnection = (ws: ClientConnection, request: IncomingMessage,
             userActivities: [],
         };
 
+        const clientDataWithConnectionId = { ...clientData, connectionId: connectionId }
+
         userClients.set(connectionId, clientData);
 
         logConnection(`User from ${request.socket.remoteAddress} connected.`);
-        sendToAllAdmins(adminClients, JSON.stringify({ type: 'CONN_RECV', data: clientData }));
+        sendToAllAdmins(adminClients, JSON.stringify({ type: 'CONN_RECV', data: clientDataWithConnectionId }));
     }
 };
