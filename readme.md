@@ -16,8 +16,7 @@ O **Live Metrics** é um projeto solo focado no monitoramento de tráfego e aç�
 - **AWS Lambda**: Processamento serverless eficiente para as funções do backend.
 - **AWS DynamoDB**: Banco de dados escalável para armazenar informações de acessos e interações.
 - **AWS Amplify**: Hospedagem do frontend e integração com os serviços AWS.
-- **AWS CloudFront**: Distribuição de conteúdo otimizada para maior desempenho.
-- **Amazon EC2**: Servidores configurados para operações específicas e processamento adicional.
+- **AWS EC2**: Servidores configurados para operações específicas e processamento adicional.
 
 ## Objetivo
 
