@@ -42,7 +42,7 @@ wss.on('connection', (ws: ClientConnection, request: IncomingMessage) => {
 
         }
         adminClients.forEach(admin => {
-            admin.send(JSON.stringify({ type: 'CONN_LOST', data: clientData }));
+            admin.send(JSON.stringify({ type: 'CONN_LOST', data: { ...clientData, connectionId: ws.connectionId } }));
         });
         userClients.delete(ws.connectionId);
     });
