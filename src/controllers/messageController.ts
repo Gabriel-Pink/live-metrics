@@ -19,8 +19,11 @@ export const handleApplicationMessages = (ws: ClientConnection, parsedData: any,
             addUserActivity(clientData, content, actionType);
         }
 
+        parsedData.data.from = ws.connectionId;
+        parsedData.data.actionTime = Date.now();
+
         adminClients.forEach((admin) => {
-            admin.send(JSON.stringify({ ...parsedData, from: ws.connectionId }));
+            admin.send(JSON.stringify(parsedData));
         });
     } else {
 
